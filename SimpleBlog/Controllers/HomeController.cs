@@ -1,18 +1,17 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Data;
+using SimpleBlog.Data.Repositories;
 using SimpleBlog.Models;
 
 namespace SimpleBlog.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly BlogDbContext _blogDb;
+        private readonly IRepository<Post> _postRepository;
 
-        public HomeController(BlogDbContext blogDb)
-        {
-            _blogDb = blogDb;
-        }
+        public HomeController(IRepository<Post> postRepository) => 
+            _postRepository = postRepository;
 
         public IActionResult Index()
         {
@@ -33,10 +32,11 @@ namespace SimpleBlog.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Post post)
         {
-            await _blogDb.Posts.AddAsync(post);
-            await _blogDb.SaveChangesAsync();
+            _postRepository.Add(post);
 
-            return RedirectToAction(nameof(Index));
+            if (await _postRepository.SaveChangesAsync())
+                return RedirectToAction(nameof(Index));
+            return View(post);
         }
     }
 }

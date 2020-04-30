@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SimpleBlog.Data;
+using SimpleBlog.Data.Repositories;
+using SimpleBlog.Models;
 
 namespace SimpleBlog
 {
@@ -19,9 +21,10 @@ namespace SimpleBlog
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(_config["DefaultConnection"]));
-
-            services.AddMvc();
+            services
+                .AddDbContext<BlogDbContext>(options => options.UseSqlServer(_config["DefaultConnection"]))
+                .AddTransient<IRepository<Post>, PostRepository>()
+                .AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
