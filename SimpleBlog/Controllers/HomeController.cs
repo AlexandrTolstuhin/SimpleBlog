@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Data.Repositories;
 using SimpleBlog.Models;
 using System.Threading.Tasks;
+using Microsoft.Extensions.WebEncoders.Testing;
 
 namespace SimpleBlog.Controllers
 {
@@ -15,6 +17,7 @@ namespace SimpleBlog.Controllers
         public IActionResult Index()
         {
             var posts = _postRepository.GetAll();
+
             return View(posts);
         }
 
@@ -22,7 +25,14 @@ namespace SimpleBlog.Controllers
         {
             var post = _postRepository.Get(id);
 
+            Test();
+
             return View(post);
+        }
+
+        void Test()
+        {
+            RedirectToPage("/home/index");
         }
 
         [HttpGet]
@@ -42,7 +52,7 @@ namespace SimpleBlog.Controllers
                 _postRepository.Add(post);
 
             if (await _postRepository.SaveChangesAsync())
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Home");
             return View(post);
         }
 
@@ -52,7 +62,7 @@ namespace SimpleBlog.Controllers
             _postRepository.Remove(id);
             await _postRepository.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), "Home");
         }
     }
 }

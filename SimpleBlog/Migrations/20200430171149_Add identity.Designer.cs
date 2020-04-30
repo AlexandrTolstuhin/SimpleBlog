@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleBlog.Data;
 
 namespace SimpleBlog.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    partial class BlogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200430171149_Add identity")]
+    partial class Addidentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,15 +46,6 @@ namespace SimpleBlog.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "5d4b5e35-3885-4bdc-b0b3-31ed2539c767",
-                            ConcurrencyStamp = "5b3baa59-6705-40f7-ac1b-137a414ed2af",
-                            Name = "admin",
-                            NormalizedName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -142,24 +135,6 @@ namespace SimpleBlog.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "5d4b5e35-3885-4bdc-b0b3-31ed2539c767",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "a1aff880-5407-4f13-87f1-084a655920b1",
-                            Email = "some-admin-email@nonce.fake",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "some-admin-email@nonce.fake",
-                            NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAELvsImBpE2EdXiv4vSitqU1AwgyUV1qNrhws2GpEwKl48IYfdMjUELmWm/kWbkwBIQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -221,13 +196,6 @@ namespace SimpleBlog.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "5d4b5e35-3885-4bdc-b0b3-31ed2539c767",
-                            RoleId = "5d4b5e35-3885-4bdc-b0b3-31ed2539c767"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
