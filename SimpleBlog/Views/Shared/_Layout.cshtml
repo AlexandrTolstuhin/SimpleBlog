@@ -8,9 +8,8 @@
 </head>
 <body>
     <div>
-        <a asp-action="Index">Home</a>
-        <a asp-action="Post">Post</a>
-        <a asp-action="Edit">Edit</a>
+        <a asp-controller="Home" asp-action="Index">Home</a>
+        <a asp-controller="Home" asp-action="Edit">Create post</a>
     </div>
     <div>
         @RenderBody()
