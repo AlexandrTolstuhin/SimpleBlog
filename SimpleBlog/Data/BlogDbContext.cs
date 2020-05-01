@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SimpleBlog.Models;
@@ -11,7 +10,7 @@ namespace SimpleBlog.Data
         public BlogDbContext(DbContextOptions<BlogDbContext> options)
             : base(options)
         {
-            
+
         }
 
         public DbSet<Post> Posts { get; set; }
@@ -21,7 +20,7 @@ namespace SimpleBlog.Data
             base.OnModelCreating(builder);
 
             const string adminId = "5d4b5e35-3885-4bdc-b0b3-31ed2539c767";
-            
+
             const string roleId = adminId;
             builder.Entity<IdentityRole>().HasData(new IdentityRole
             {
