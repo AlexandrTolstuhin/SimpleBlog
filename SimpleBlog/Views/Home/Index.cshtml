@@ -2,13 +2,15 @@
 
 <h2>Home page</h2>
 
+<img src="~/content/static/blog.png" />
+
 <div>
     <ul>
         @foreach (var post in Model)
         {
-        <li>
-            <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">@post.Title</a>
-        </li>
+            <li>
+                <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">@post.Title</a>
+            </li>
         }
     </ul>
 </div>

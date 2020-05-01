@@ -10,15 +10,13 @@ namespace SimpleBlog.Controllers
     {
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AuthController(SignInManager<IdentityUser> signInManager)
-        {
+        public AuthController(SignInManager<IdentityUser> signInManager) => 
             _signInManager = signInManager;
-        }
 
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            return View(new LoginViewModel {ReturnUrl = returnUrl});
+            return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
         [HttpPost]

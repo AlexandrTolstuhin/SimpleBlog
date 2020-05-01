@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SimpleBlog.Data.FileManager;
 using SimpleBlog.Data.Repositories;
 using SimpleBlog.Models;
+using SimpleBlog.ViewModels;
+using System.Threading.Tasks;
 
 namespace SimpleBlog.Controllers
 {
@@ -10,10 +12,12 @@ namespace SimpleBlog.Controllers
     public class PanelController : Controller
     {
         private readonly IRepository<Post> _postRepository;
+        private readonly IFileManager _fileManager;
 
-        public PanelController(IRepository<Post> postRepository)
+        public PanelController(IRepository<Post> postRepository, IFileManager fileManager)
         {
             _postRepository = postRepository;
+            _fileManager = fileManager;
         }
 
         public IActionResult Index()
@@ -26,14 +30,32 @@ namespace SimpleBlog.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            var post = id != null ? _postRepository.Get(id.Value) : new Post();
+            if (!id.HasValue)
+            {
+                return View(new PostViewModel());
+            }
 
-            return View(post);
+            var post = _postRepository.Get(id.Value);
+
+            return View(new PostViewModel
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Body = post.Body
+            });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Post post)
+        public async Task<IActionResult> Edit(PostViewModel vm)
         {
+            var post = new Post
+            {
+                Id = vm.Id,
+                Title = vm.Title,
+                Body = vm.Body,
+                Image = await _fileManager.SaveImageAsync(vm.Image)
+            };
+
             if (post.Id > 0)
                 _postRepository.Update(post);
             else
@@ -41,7 +63,7 @@ namespace SimpleBlog.Controllers
 
             if (await _postRepository.SaveChangesAsync())
                 return RedirectToAction(nameof(Index));
-            return View(post);
+            return View(vm);
         }
 
         [HttpGet]

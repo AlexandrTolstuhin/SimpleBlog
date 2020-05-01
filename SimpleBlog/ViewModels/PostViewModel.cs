@@ -1,8 +1,9 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http;
 
-namespace SimpleBlog.Models
+namespace SimpleBlog.ViewModels
 {
-    public class Post
+    public class PostViewModel
     {
         public int Id { get; set; }
 
@@ -10,8 +11,6 @@ namespace SimpleBlog.Models
 
         public string Body { get; set; } = string.Empty;
 
-        public string Image { get; set; } = string.Empty;
-
-        public DateTime Created { get; set; } = DateTime.Now;
+        public IFormFile Image { get; set; }
     }
 }

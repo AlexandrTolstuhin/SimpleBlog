@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SimpleBlog.Data;
+using SimpleBlog.Data.FileManager;
 using SimpleBlog.Data.Repositories;
 using SimpleBlog.Models;
 
@@ -25,6 +26,7 @@ namespace SimpleBlog
             services
                 .AddDbContext<BlogDbContext>(options => options.UseSqlServer(_config["DefaultConnection"]))
                 .AddTransient<IRepository<Post>, PostRepository>()
+                .AddTransient<IFileManager, FileManager>()
                 .AddMvc();
 
             services
@@ -50,6 +52,8 @@ namespace SimpleBlog
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
 
             app.UseRouting();
 
