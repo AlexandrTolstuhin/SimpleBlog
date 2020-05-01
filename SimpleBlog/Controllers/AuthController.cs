@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.ViewModels;
 using System.Threading.Tasks;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace SimpleBlog.Controllers
 {
@@ -15,9 +16,9 @@ namespace SimpleBlog.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
-            return View(new LoginViewModel());
+            return View(new LoginViewModel {ReturnUrl = returnUrl});
         }
 
         [HttpPost]
@@ -25,7 +26,9 @@ namespace SimpleBlog.Controllers
         {
             var result = await _signInManager.PasswordSignInAsync(vm.UserName, vm.Password, false, false);
 
-            return RedirectToAction("Index", "Home");
+            if (!string.IsNullOrEmpty(vm.ReturnUrl))
+                return Redirect(vm.ReturnUrl);
+            return RedirectToAction("Index", result == SignInResult.Success ? "Panel" : "Home");
         }
 
         [HttpGet]

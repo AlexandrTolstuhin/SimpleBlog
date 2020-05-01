@@ -36,6 +36,12 @@ namespace SimpleBlog
                     options.Password.RequiredLength = 4;
                 })
                 .AddEntityFrameworkStores<BlogDbContext>();
+
+            services
+                .ConfigureApplicationCookie(options =>
+                {
+                    options.LoginPath = "/Auth/Login";
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,6 +54,7 @@ namespace SimpleBlog
             app.UseRouting();
 
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
