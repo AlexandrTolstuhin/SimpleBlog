@@ -1,0 +1,71 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background: #2e5f88;
+    background: linear-gradient(135deg, #2e5f88 0, #904ccc 100%);
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+nav {
+    height: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+nav a {
+    display: inline-block;
+    height: 100%;
+    padding: 15px;
+}
+
+.main-image {
+    height: 300px;
+    background-image: url('../content/static/home-image.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: auto;
+}
+
+.post {
+    color: white;
+    position: relative;
+    display: flex;
+    height: 100px;
+    text-align: center;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px 0 white;
+}
+
+.post_title {
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translateX(-50%);
+    font-size: 20px;
+}
+
+.post_created {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 15px;
+}

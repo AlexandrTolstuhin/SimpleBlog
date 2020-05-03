@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<Post>
 
-<h2>Home page</h2>
-
-<img src="~/content/static/blog.png" />
+<div class="main-image">
+</div>
 
 <div>
-    <ul>
-        @foreach (var post in Model)
-        {
-            <li>
-                <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">@post.Title</a>
-            </li>
-        }
-    </ul>
+    @foreach (var post in Model)
+    {
+        <article class="post">
+            <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
+                <span class="post_title">@post.Title</span>
+            </a>
+            <label class="post_created">Created: @post.Created.ToString("g")</label>
+        </article>
+    }
 </div>

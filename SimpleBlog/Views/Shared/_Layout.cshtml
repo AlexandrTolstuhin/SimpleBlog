@@ -3,26 +3,30 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
+    <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
-        @if (!User.Identity.IsAuthenticated)
-        {
-            <a asp-controller="Home" asp-action="Index">Home</a>
-            <a asp-controller="Auth" asp-action="Login">Sign In</a>
-        }
-        else
-        {
-            <a asp-controller="Panel" asp-action="Index">Home</a>
-            <a asp-controller="Panel" asp-action="Edit">Create post</a>
+    <header>
+        <nav>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-controller="Auth" asp-action="Login">Sign In</a>
+            }
+            else
+            {
+                <a asp-controller="Panel" asp-action="Index">Home</a>
+                <a asp-controller="Panel" asp-action="Edit">Create post</a>
 
-            <a asp-controller="Auth" asp-action="Logout">Logout</a>
-        }
-    </div>
-    <div>
+                <a asp-controller="Auth" asp-action="Logout">Logout</a>
+            }
+        </nav>
+    </header>
+    <main class="container">
         @RenderBody()
-    </div>
+    </main>
+    <footer></footer>
 </body>
 </html>
