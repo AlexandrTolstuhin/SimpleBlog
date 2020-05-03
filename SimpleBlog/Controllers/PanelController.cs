@@ -48,13 +48,12 @@ namespace SimpleBlog.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(PostViewModel vm)
         {
-            var post = new Post
-            {
-                Id = vm.Id,
-                Title = vm.Title,
-                Body = vm.Body,
-                Image = await _fileManager.SaveImageAsync(vm.Image)
-            };
+            var post = _postRepository.Get(vm.Id);
+
+            post.Title = vm.Title;
+            post.Body = vm.Body;
+            if (vm.Image != null)
+                post.Image = await _fileManager.SaveImageAsync(vm.Image);
 
             if (post.Id > 0)
                 _postRepository.Update(post);
