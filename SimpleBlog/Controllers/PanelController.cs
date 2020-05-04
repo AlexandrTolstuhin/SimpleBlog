@@ -48,7 +48,7 @@ namespace SimpleBlog.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(PostViewModel vm)
         {
-            var post = _postRepository.Get(vm.Id);
+            var post = _postRepository.Get(vm.Id) ?? new Post();
 
             post.Title = vm.Title;
             post.Body = vm.Body;
